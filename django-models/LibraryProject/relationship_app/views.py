@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from relationship_app.models import Book
+from relationship_app.models import Library
 
 def list_books(request):
     books = Book.objects.all()
     list_books = [f"{book.title} by {book.author}" for book in books]
     return render(request, "relationship_app/list_books.html", {"books": books})
 
-from relationship_app.models import Library
+
 from django.views.generic import DetailView                                
   
 class LibraryBooksView(DetailView):

@@ -6,13 +6,15 @@ from django.http import HttpResponse
 from relationship_app.models import Book, Library   
 def list_books(request):
     books = Book.objects.all()
-    lines = [f"{book.title} by {book.author}" for book in books]
-    return HttpResponse("\n".join(lines), content_type="text/plain")
+    list_books = [f"{book.title} by {book.author}" for book in books]
+    return render(request, "relationship_app/list_books.html", {"books": books})
 
 
 from query_samples import List_all_books_in_library
-from django.views.generic import ListView
+from django.views.generic import ListView                                
 from bookshelf.models import Book
+from relationship_app.models import Library 
+
 class LibraryBooksView(ListView):
     model = Book
     template_name = 'list_books.html'

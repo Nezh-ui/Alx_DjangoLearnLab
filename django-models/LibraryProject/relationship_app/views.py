@@ -13,7 +13,7 @@ def list_books(request):
 from .models import Library, Book 
 from django.views.generic.detail import DetailView                              
   
-class LibraryBooksView(DetailView):
+class LibraryDetailView(DetailView):
     model = Library
     context_object_name = 'library'
     template_name = 'relationship_app/library_detail.html'

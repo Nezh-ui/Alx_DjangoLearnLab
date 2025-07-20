@@ -75,7 +75,7 @@ def add_book(request):
     return render(request, 'relationship_app/add_book.html')
 
 @permission_required('relationship_app.can_change_book')
-def edit_book(request, book_id):
+def edit_book(request):
     if request.method == 'POST':
         # Handle book change logic here
         pass

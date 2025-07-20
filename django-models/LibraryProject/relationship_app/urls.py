@@ -14,6 +14,9 @@ urlpatterns = [
     path('admin/', views.Admin_view, name='admin_view'),
     path('librarian/', views.Librarian_view, name='librarian_view'),
     path('member/', views.Member_view, name='member_view'),
+    path('book/add/', views.add_book, name='add_book'),
+    path('book/<int:pk>/edit/', views.change_book, name='edit_book'),
+    path('book/<int:pk>/delete/', views.delete_book, name='delete_book'),
 ]
 # This code defines the URL patterns for the relationship app in a Django project.
 # It includes a path for listing all books and a detail view for books in a specific library

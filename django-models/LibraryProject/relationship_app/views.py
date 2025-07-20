@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from relationship_app.models import Book
 from relationship_app.models import Library  
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import user_passes_test, permission_required
 from .models import UserProfile
 
 def list_books(request):
@@ -65,3 +65,24 @@ def Librarian_view(request):
 @user_passes_test(is_member,)
 def Member_view(request):
     return render(request, 'relationship_app/member_view.html')
+
+@permission_required('relationship_app.can_add_book')
+def add_book(request):
+    if request.method == 'POST':
+        # Handle book addition logic here
+        pass
+    return render(request, 'relationship_app/add_book.html')
+
+@permission_required('relationship_app.can_change_book')
+def change_book(request, book_id):
+    if request.method == 'POST':
+        # Handle book change logic here
+        pass
+    return render(request, 'relationship_app/change_book.html')
+
+@permission_required('relationship_app.can_delete_book')
+def delete_book(request, book_id):
+    if request.method == 'POST':
+        # Handle book deletion logic here
+        pass
+    return render(request, 'relationship_app/delete_book.html')

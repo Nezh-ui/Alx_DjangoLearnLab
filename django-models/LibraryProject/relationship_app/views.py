@@ -1,10 +1,7 @@
 from django.shortcuts import render
 from relationship_app.models import Book
 from relationship_app.models import Library  
-from django.contrib.auth.decorators import login_required
 
-
-@login_required
 def list_books(request):
     books = Book.objects.all()
     if 'library_name' in request.GET:
@@ -31,14 +28,25 @@ class LibraryDetailView(DetailView):
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
-from django.contrib.auth.views import LoginView
+from django.shortcuts import redirect
+from django.contrib.auth import login
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})
 
 class RegisterView(CreateView):
     form_class = UserCreationForm
     template_name = 'relationship_app/register.html'
     success_url = reverse_lazy('login')
 
-class CustomLoginView(LoginView):
-    template_name = 'relationship_app/login.html'
+
 
 

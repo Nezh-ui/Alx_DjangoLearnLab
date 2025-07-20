@@ -26,3 +26,15 @@ class LibraryDetailView(DetailView):
             return Book.objects.filter(library__name=library_name)
         return Book.objects.none()
     
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
+
+class RegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'relationship_app/register.html'
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        return response

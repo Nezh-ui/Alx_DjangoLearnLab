@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from relationship_app.models import Book
-from relationship_app.models import Library     
+from relationship_app.models import Library  
+from django.contrib.auth.decorators import login_required
 
 
-def list_books(request):  
+@login_required
+def list_books(request):
     books = Book.objects.all()
     if 'library_name' in request.GET:
         library_name = request.GET['library_name']

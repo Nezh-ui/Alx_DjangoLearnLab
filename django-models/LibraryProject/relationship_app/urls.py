@@ -15,7 +15,7 @@ urlpatterns = [
     path('librarian/', views.Librarian_view, name='librarian_view'),
     path('member/', views.Member_view, name='member_view'),
     path('book/add/', views.add_book, name='add_book'),
-    path('book/<int:pk>/edit/', views.change_book, name='edit_book'),
+    path('book/<int:pk>/edit/', views.edit_book, name='edit_book'),
     path('book/<int:pk>/delete/', views.delete_book, name='delete_book'),
 ]
 # This code defines the URL patterns for the relationship app in a Django project.

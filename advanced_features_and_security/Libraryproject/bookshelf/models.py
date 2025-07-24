@@ -68,7 +68,7 @@ class Librarian(models.Model):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bookshelf_profile')
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='bookshelf_profile')
     role = models.CharField(max_length=100, choices=[('Admin', 'Admin'), ('Librarian', 'Librarian'), ('Member', 'Member')])
     
     def __str__(self):

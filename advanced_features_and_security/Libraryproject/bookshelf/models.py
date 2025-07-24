@@ -1,10 +1,6 @@
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
-from django.contrib.auth.decorators import user_passes_test
-
-from typing import Any
-from django.contrib.auth.models import UserManager      
 
 class CustomUserManager(UserManager):
     def create_user(self, username, email=None, password=None, **extra_fields):
@@ -20,7 +16,7 @@ class CustomUserManager(UserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(username, email, password, **extra_fields)
-
+    
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)

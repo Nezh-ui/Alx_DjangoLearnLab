@@ -52,8 +52,8 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return f"{self.user.username} - {self.role}"
-    
-class CustomUserManager(UserManager):
+
+class customUserManager(UserManager):
     def create_user(self, username, email=None, password=None, **extra_fields):
         if not email:
             raise ValueError('The Email field must be set')
@@ -68,11 +68,11 @@ class CustomUserManager(UserManager):
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(username, email, password, **extra_fields)
     
-class CustomUser(AbstractUser):
+class customUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     
-    objects = CustomUserManager()
+    objects = customUserManager()
     
 
 

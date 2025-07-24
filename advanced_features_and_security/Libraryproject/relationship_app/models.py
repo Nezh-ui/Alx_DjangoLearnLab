@@ -1,4 +1,6 @@
-from django.db import models  
+from django.db import models
+
+from django.conf import settings  
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
@@ -37,7 +39,7 @@ class Librarian(models.Model):
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='relationship_profile')
     role = models.CharField(max_length=100, choices=[('Admin', 'Admin'), ('Librarian', 'Librarian'), ('Member', 'Member')])
     
     def __str__(self):

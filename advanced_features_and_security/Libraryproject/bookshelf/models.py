@@ -5,6 +5,14 @@ from django.contrib.auth.models import AbstractUser, UserManager
 class Author(models.Model):
     name = models.CharField(max_length=100)
 
+    class Meta:
+        permissions = [
+            ("can_view_author", "Can view author"),
+            ("can_create_author", "Can create author"),
+            ("can_edit_author", "Can edit author"),
+            ("can_delete_author", "Can delete author"),
+        ]
+
     def __str__(self):
         return self.name
 
@@ -17,6 +25,7 @@ class Book(models.Model):
             ("can_add_book", "Can add book"),
             ("can_change_book", "Can change book"),
             ("can_delete_book", "Can delete book"),
+
         ]
 
     def __str__(self):
@@ -36,10 +45,9 @@ class Librarian(models.Model):
     def __str__(self):
         return self.name
 
-from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bookshelf_profile')
     role = models.CharField(max_length=100, choices=[('Admin', 'Admin'), ('Librarian', 'Librarian'), ('Member', 'Member')])
     
     def __str__(self):
@@ -65,6 +73,7 @@ class CustomUser(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     
     objects = CustomUserManager()
+    
 
 
 

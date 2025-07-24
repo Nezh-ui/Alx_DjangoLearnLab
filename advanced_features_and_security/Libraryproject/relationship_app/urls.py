@@ -1,6 +1,6 @@
 from django.urls import path
 
-from Introduction_to_Django.LibraryProject.bookshelf import views
+from bookshelf import views
 from .views import list_books, LibraryDetailView
 from django.contrib.auth.views import LoginView, LogoutView 
 from relationship_app import views

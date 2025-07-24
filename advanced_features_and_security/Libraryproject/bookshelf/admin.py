@@ -23,6 +23,8 @@ class CustomUserAdmin(UserAdmin):
         *UserAdmin.add_fieldsets,
         (None, {'fields': ('date_of_birth', 'profile_picture')}),
     )
+
+admin.site.register(CustomUser)
     
 
-admin.site.register(CustomUser, CustomUserAdmin)
+

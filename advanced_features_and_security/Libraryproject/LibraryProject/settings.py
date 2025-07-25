@@ -128,12 +128,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'  # Use your custom user model
 
-SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = 'DENY'
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-
+SECURE_BROWSER_XSS_FILTER = True # Enable browser XSS filter
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP traffic to HTTPS
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking by denying framing of the site
+SECURE_HSTS_SECONDS = 3600  # Enable HTTP Strict Transport Security for 1 hour
+SECURE_CONTENT_TYPE_NOSNIFF = True # Prevent MIME type sniffing
+SESSION_COOKIE_SECURE = True # Use secure cookies for sessions
+CSRF_COOKIE_SECURE = True # Use secure cookies for CSRF protection
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP traffic to HTTPS
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True  # Allow preloading of HSTS
+                                      
 CONTENT_SECURITY_POLICY = {
     'default-src': [SELF],
     'script-src': [SELF, "https://trustedstyles.com"],

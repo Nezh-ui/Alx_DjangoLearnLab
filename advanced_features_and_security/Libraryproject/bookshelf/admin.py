@@ -15,7 +15,7 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
     fieldsets = (
         *UserAdmin.fieldsets,
-        (None, {'fields': ('date_of_birth', 'profile_picture')})
+        (None, {'fields': ('date_of_birth', 'profile_photo')})
 
     )
 
@@ -24,7 +24,4 @@ class CustomUserAdmin(UserAdmin):
         (None, {'fields': ('date_of_birth', 'profile_picture')}),
     )
 
-admin.site.register(CustomUser)
-    
-
-
+admin.site.register(CustomUser, CustomUserAdmin)

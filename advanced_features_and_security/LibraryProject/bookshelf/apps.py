@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
-from .models import Author
+from .models import Book
 
 
 class BookshelfConfig(AppConfig):
@@ -11,11 +11,11 @@ class BookshelfConfig(AppConfig):
     def ready(self):
         # Create groups and permissions
         editors_group, _ = Group.objects.get_or_create(name='Editors')
-        content_type = ContentType.objects.get_for_model(Author)
+        content_type = ContentType.objects.get_for_model(Book)
 
         permissions = [
-            ("can_create_author", "Can create author"),
-            ("can_edit_author", "Can edit author"),
+            ("can_create_book", "Can create book"),
+            ("can_edit_book", "Can edit book"),
         ]
 
         for perm in permissions:
@@ -28,10 +28,10 @@ class BookshelfConfig(AppConfig):
         editors_group.save()
 
         viewers_group, _ = Group.objects.get_or_create(name='Viewers')
-        content_type = ContentType.objects.get_for_model(Author)
+        content_type = ContentType.objects.get_for_model(Book)
 
         permissions = [
-            ("can_view_author", "Can view author"),
+            ("can_view_book", "Can view book"),
         ]
 
         for perm in permissions:
@@ -44,13 +44,13 @@ class BookshelfConfig(AppConfig):
         viewers_group.save()
 
         admins_group, _ = Group.objects.get_or_create(name='Admins')
-        content_type = ContentType.objects.get_for_model(Author)
+        content_type = ContentType.objects.get_for_model(Book)
 
         permissions = [
-            ("can_view_author", "Can view author"),
-            ("can_create_author", "Can create author"),
-            ("can_edit_author", "Can edit author"),
-            ("can_delete_author", "Can delete author"),
+            ("can_view_book", "Can view book"),
+            ("can_create_book", "Can create book"),
+            ("can_edit_book", "Can edit book"),
+            ("can_delete_book", "Can delete book"),
         ]
 
         for perm in permissions:

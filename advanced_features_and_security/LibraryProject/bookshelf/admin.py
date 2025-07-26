@@ -3,6 +3,7 @@ from .models import Book
 from .models import CustomUser
 from django.contrib.auth.admin import UserAdmin
 
+
 admin.site.register(Book)
 
 class BookAdmin(admin.ModelAdmin):
@@ -25,3 +26,6 @@ class CustomUserAdmin(UserAdmin):
     )
 
 admin.site.register(CustomUser, CustomUserAdmin) # Register the custom user model with the admin site
+ 
+
+

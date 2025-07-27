@@ -138,7 +138,7 @@ CSRF_COOKIE_SECURE = True # Use secure cookies for CSRF protection
 SECURE_SSL_REDIRECT = True  # Redirect all HTTP traffic to HTTPS
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
 SECURE_HSTS_PRELOAD = True  # Allow preloading of HSTS
-                                      
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Use this if behind a proxy
 CONTENT_SECURITY_POLICY = {
     'default-src': [SELF],
     'script-src': [SELF, "https://trustedstyles.com"],

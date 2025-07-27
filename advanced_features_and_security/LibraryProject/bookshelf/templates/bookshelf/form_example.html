@@ -1,0 +1,36 @@
+<form method="get">
+    {{ form.as_p }}
+    <button type="submit">Search</button>
+</form>
+
+<ul>
+  {% for book in books %}
+    <li>{{ book.title }} - {{ book.author }}</li>
+  {% endfor %}
+</ul>
+{% if books %}
+  <p>Total books found: {{ books|length }}</p>
+{% else %}
+  <p>No books found.</p>
+{% endif %}
+{% if form.errors %}
+  <div class="error">
+    <p>Please correct the errors below:</p>
+    <ul>
+      {% for field in form %}
+        {% for error in field.errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+      {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+{% if not books %}
+  <p>Try a different search term.</p>
+{% endif %}
+{% if form.is_bound %}
+  <p>Search was performed with the term: "{{ form.search_term.value }}"</p>
+{% endif %}

@@ -1,5 +1,4 @@
 ## Permissions & Groups
-
 - **Viewers**: can_view
 - **Editors**: can_create, can_edit
 - **Admins**: all permissions

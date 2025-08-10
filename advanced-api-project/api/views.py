@@ -1,3 +1,4 @@
+from django_filters import rest_framework
 from rest_framework import filters
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework import generics, permissions

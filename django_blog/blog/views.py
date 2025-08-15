@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
-from django_blog.blog.forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm
 from django.contrib.auth.decorators import login_required
 from .forms import CustomProfileUpdateForm, CustomUserUpdateForm
 

@@ -2,7 +2,7 @@ from xml.etree.ElementTree import Comment
 from django import forms    
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
+from taggit.forms import Tagwidgwet
 from .models import Post, Profile
 
 class CustomUserCreationForm(UserCreationForm): # User registration form
@@ -31,6 +31,7 @@ class PostForm(forms.ModelForm): # Post form
         widgets = {
                     'content': forms.Textarea(attrs={'rows': 5}),
                     'title': forms.TextInput(attrs={'placeholder': 'Enter post title'}),
+                    'tags': forms.TextInput(attrs={'placeholder': 'Enter tags (comma-separated)'}),
                 }
     
         def clean_title(self):

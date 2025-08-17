@@ -1,7 +1,7 @@
 from django.urls import path
 from blog import views
 from django.contrib.auth import views as auth_views
-from.views import PostListView, PostCreateView, PostUpdateView, PostDeleteView
+from.views import PostDetailView, PostListView, PostCreateView, PostUpdateView, PostDeleteView
 
 urlpatterns = [
     path('register/', views.register, name='register'), # User registration view
@@ -9,7 +9,8 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'), # Logout view for logged-in users
     path('profile/', views.profile, name='profile'), # Profile view for logged-in users
     path('posts/', PostListView.as_view(), name='post-list'), # List view for all posts
-    path('posts/create/', PostCreateView.as_view(), name='post-create'), # Create view for new posts
+    path('posts/<int:pk>/', PostDetailView.as_view(), name='post-detail'), # Detail view for a single post
+    path('posts/new/', PostCreateView.as_view(), name='post-create'), # Create view for new posts
     path('posts/<int:pk>/update/', PostUpdateView.as_view(), name='post-update'), # Update view for existing posts
     path('posts/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'), # Delete view for existing posts
 ]

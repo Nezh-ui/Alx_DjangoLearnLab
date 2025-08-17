@@ -1,7 +1,7 @@
 from django.urls import path
 from blog import views
 from django.contrib.auth import views as auth_views
-from.views import PostDetailView, PostListView, PostCreateView, PostUpdateView, PostDeleteView
+from.views import PostDetailView, PostListView, PostCreateView, PostUpdateView, PostDeleteView, PostByTagListView
 
 urlpatterns = [
     path('register/', views.register, name='register'), # User registration view
@@ -17,5 +17,5 @@ urlpatterns = [
     path('comment/<int:pk>/update/', views.CommentUpdateView.as_view(), name='comment-update'), # Update view for existing comments
     path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name='comment-delete'), # Delete view for existing comments
     path('search/', views.search_posts, name='search-posts'), # Search functionality for posts
-    path('tags/<str:tag_name>/', views.posts_by_tag, name='posts-by-tag'), # Posts by tag view
+    path('tags/<slug:tag_slug>/', views.PostByTagListView.as_view(), name='posts-by-tag'), # Posts by tag view
 ]

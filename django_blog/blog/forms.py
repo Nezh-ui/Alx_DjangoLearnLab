@@ -33,7 +33,7 @@ class PostForm(forms.ModelForm): # Post form
                     'title': forms.TextInput(attrs={'placeholder': 'Enter post title'}),
                     'tags': TagWidget(attrs={'placeholder': 'Enter tags (comma-separated)'}),
                 }
-    
+        tags = TagWidget()
         def clean_title(self):
             title = self.cleaned_data.get('title')  # type: ignore
             if not title:

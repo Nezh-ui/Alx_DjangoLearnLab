@@ -1,3 +1,4 @@
+from xml.etree.ElementTree import Comment
 from django import forms    
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -36,3 +37,17 @@ class PostForm(forms.ModelForm): # Post form
             if not title:
                 raise forms.ValidationError("Title is required.")
             return title
+
+class CommentForm(forms.ModelForm): # Comment form
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 3}),
+        }
+
+    def clean_content(self):
+        content = self.cleaned_data.get('content')  # type: ignore
+        if not content:
+            raise forms.ValidationError("Content is required.")
+        return content

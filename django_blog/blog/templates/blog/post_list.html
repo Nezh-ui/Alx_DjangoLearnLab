@@ -1,0 +1,16 @@
+<!-- templates/blog/post_list.html -->
+<h1>All Blog Posts</h1>
+<a href="{% url 'post_create' %}">Create New Post</a>
+<ul>
+  {% for post in posts %}
+    <li>
+      <a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a>
+      <small>by {{ post.author.username }} on {{ post.created_at|date:"M d, Y" }}</small>
+    </li>
+  {% empty %}
+    <li>No posts yet.</li>
+  {% endfor %}
+</ul>
+{% if is_paginated %}
+  <div class="pagination">
+    <span class="step-links

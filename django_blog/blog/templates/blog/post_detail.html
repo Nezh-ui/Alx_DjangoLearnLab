@@ -1,0 +1,11 @@
+<!-- templates/blog/post_detail.html -->
+<h2>{{ object.title }}</h2>
+<p>{{ object.content }}</p>
+<p><strong>Author:</strong> {{ object.author.username }}</p>
+<p><strong>Posted on:</strong> {{ object.created_at|date:"M d, Y" }}</p>
+
+{% if request.user == object.author %}
+  <a href="{% url 'post_update' object.pk %}">Edit</a> |
+  <a href="{% url 'post_delete' object.pk %}">Delete</a>
+{% endif %}
+<a href="{% url 'post_list' %}">Back to list</a>

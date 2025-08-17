@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Profile
+from .models import Post, Profile
 
 class CustomUserCreationForm(UserCreationForm): # User registration form
     email = forms.EmailField(required=True)
@@ -21,3 +21,18 @@ class CustomUserUpdateForm(forms.ModelForm): # User update form
     class Meta:
         model = User
         fields = ['username', 'email']
+
+class PostForm(forms.ModelForm): # Post form
+    class Meta:
+        model = Post
+        fields = ['title', 'content']
+        widgets = {
+                    'content': forms.Textarea(attrs={'rows': 5}),
+                    'title': forms.TextInput(attrs={'placeholder': 'Enter post title'}),
+                }
+    
+        def clean_title(self):
+            title = self.cleaned_data.get('title')  # type: ignore
+            if not title:
+                raise forms.ValidationError("Title is required.")
+            return title

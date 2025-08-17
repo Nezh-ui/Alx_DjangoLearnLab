@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
-from .forms import CustomUserCreationForm
+from django.views import generic
+
+from .models import Post
+from .forms import CustomUserCreationForm, PostForm
 from django.contrib.auth.decorators import login_required
 from .forms import CustomProfileUpdateForm, CustomUserUpdateForm
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 # Create your views here.
@@ -33,3 +37,40 @@ def profile(request): # Profile view for logged-in users
             return HttpResponse("Error updating profile.")
 
     return render(request, 'registration/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+class PostListView(generic.ListView):
+    model = Post
+    template_name = 'blog/post_list.html'
+    context_object_name = 'posts'
+
+class PostDetailView(generic.DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'
+    context_object_name = 'post'
+
+class PostCreateView(generic.CreateView, LoginRequiredMixin):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class PostUpdateView(generic.UpdateView, LoginRequiredMixin, UserPassesTestMixin):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
+
+class PostDeleteView(generic.DeleteView, LoginRequiredMixin, UserPassesTestMixin):
+    model = Post
+    template_name = 'blog/post_confirm_delete.html'
+    success_url = '/blog/'
+
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author

@@ -24,9 +24,10 @@ class CustomUserUpdateForm(forms.ModelForm): # User update form
         fields = ['username', 'email']
 
 class PostForm(forms.ModelForm): # Post form
+    tags = forms.CharField(max_length=100, required=False) # Tags field
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'tags']
         widgets = {
                     'content': forms.Textarea(attrs={'rows': 5}),
                     'title': forms.TextInput(attrs={'placeholder': 'Enter post title'}),

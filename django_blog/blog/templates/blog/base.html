@@ -35,3 +35,8 @@
 <head>
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head> <!-- Add your custom styles here -->
+
+<form method="get" action="{% url 'search-posts' %}">
+    <input type="text" name="q" placeholder="Search posts...">
+    <button type="submit">Search</button>
+</form>

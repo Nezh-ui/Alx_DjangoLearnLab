@@ -11,7 +11,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, required=True)
 
     def create(self, validated_data):
-        user = user.objects.create_user(
+        user = get_user_model().objects.create_user(
             email=validated_data['email'],
             username=validated_data['username'],
             ID=validated_data['ID'],

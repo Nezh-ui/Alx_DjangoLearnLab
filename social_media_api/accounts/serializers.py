@@ -5,8 +5,8 @@ from .models import CustomUser
 
 user = get_user_model()
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(required=True)
     username = serializers.CharField(required=True)
+    email = serializers.EmailField(required=True)
     ID = serializers.CharField(required=True)
     password = serializers.CharField(write_only=True, required=True)
 

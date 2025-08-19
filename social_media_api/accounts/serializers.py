@@ -3,9 +3,9 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import get_user_model
 from .models import CustomUser
 
-_=serializers.CharField
+
 user = get_user_model()
-class UserRegistrationSerializer(serializers.ModelSerializer):
+class UserRegistrationSerializer(serializers.ModelSerializer): #_= serializers.CharField()
     username = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
     ID = serializers.CharField(required=True)

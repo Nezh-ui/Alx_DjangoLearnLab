@@ -1,6 +1,7 @@
 from warnings import filters
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
+from rest_framework import permissions, filters
 from .serializers import CommentSerializer, PostSerializer
 from .models import Post, Comment
 from rest_framework.views import APIView
@@ -39,7 +40,7 @@ class CommentViewset(viewsets.ModelViewSet): # handles comment CRUD ops
         serializer.save(author=self.request.user)
 
 class FeedView(APIView):
-    permission_classes = [IsAuthenticated] # handles feed view for posts from followed users
+    permission_classes = [permissions.IsAuthenticated] # handles feed view for posts from followed users
 
     def get(self, request):
         user = request.user

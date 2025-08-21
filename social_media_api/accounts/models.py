@@ -7,3 +7,13 @@ class CustomUser(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_pictures/', blank=True)
     followers = models.ManyToManyField('self', symmetrical=False, related_name='following', blank=True)
     following = models.ManyToManyField('self', symmetrical=False, related_name='followers', blank=True)
+
+    def follow(self, user):  # handles following users
+        if user != self:
+            self.following.add(user)
+            user.followers.add(self)
+
+    def unfollow(self, user):  # handles unfollowing users
+        if user != self:
+            self.following.remove(user)
+            user.followers.remove(self)

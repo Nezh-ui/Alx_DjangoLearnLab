@@ -3,6 +3,8 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from .serializers import CommentSerializer, PostSerializer
 from .models import Post, Comment
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 # Create your views here.
 class IsOwnerOrReadOnly(permissions.BasePermission):
@@ -35,3 +37,13 @@ class CommentViewset(viewsets.ModelViewSet): # handles comment CRUD ops
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+class FeedView(APIView):
+    permission_classes = [IsAuthenticated] # handles feed view for posts from followed users
+
+    def get(self, request):
+        user = request.user
+        following_users = user.following.all()
+        posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)

@@ -1,7 +1,7 @@
 from multiprocessing.managers import Token
 from django.shortcuts import render
 from rest_framework.views import APIView
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -37,7 +37,7 @@ class ProfileView(APIView):
 
 
 class FollowView(generics.GenericAPIView): # handles following users
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = CustomUser.objects.all()
 
     def post(self, request):
@@ -51,7 +51,7 @@ class FollowView(generics.GenericAPIView): # handles following users
             return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
 
 class UnfollowView(generics.GenericAPIView): # handles unfollowing users
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     queryset = CustomUser.objects.all()
 
     def post(self, request):

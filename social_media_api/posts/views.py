@@ -67,7 +67,7 @@ class LikeView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, post_id):
-        post = generics.get_object_or_404(Post, pk=post_id)  # Get post or return 404
+        post = generics.get_object_or_404(Post, pk=pk)  # Get post or return 404
         created = Like.objects.get_or_create(user=request.user, post=post)  # Create like if it doesn't exist
         if created:
             if post.author != request.user:  # Notify post author

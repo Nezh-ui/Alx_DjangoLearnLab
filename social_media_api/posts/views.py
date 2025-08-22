@@ -2,7 +2,7 @@ from warnings import filters
 from django.shortcuts import render
 from rest_framework import viewsets
 from rest_framework import permissions, filters
-
+from rest_framework import generics
 from notifications.models import Notification
 from .serializers import CommentSerializer, PostSerializer
 from .models import Like, Post, Comment
@@ -67,10 +67,8 @@ class LikeView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, post_id):
-        post = Post.objects.get(id=post_id)
-        if not post:
-            return Response({"status": "not found"}, status=404)
-        created = Like.objects.get_or_create(post=post, user=request.user)
+        post = generics.get_object_or_404(Post, pk=post_id)  # Get post or return 404
+        created = Like.objects.get_or_create(user=request.user, post=post)  # Create like if it doesn't exist
         if created:
             if post.author != request.user:  # Notify post author
                 Notification.objects.create(

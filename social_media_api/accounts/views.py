@@ -8,6 +8,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from .models import CustomUser
 from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserProfileSerializer
+from django.contrib.contenttypes.models import ContentType
+from notifications.models import Notification
 
 
 # Create your views here.
@@ -46,6 +48,14 @@ class FollowView(generics.GenericAPIView): # handles following users
             follow_user_id = request.data.get('follow_user_id')
             follow_user = CustomUser.objects.get(id=follow_user_id)
             user.follow(follow_user)
+            if follow_user != user:
+                Notification.objects.create(
+                    recipient=follow_user,
+                    actor=user,
+                    verb='followed',
+                    content_type=ContentType.objects.get_for_model(CustomUser),
+                    object_id=follow_user.id
+                )
             return Response({'message': 'Successfully followed user.'}, status=status.HTTP_200_OK)
         except CustomUser.DoesNotExist:
             return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)

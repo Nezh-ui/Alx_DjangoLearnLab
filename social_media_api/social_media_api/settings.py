@@ -103,8 +103,9 @@ WSGI_APPLICATION = 'social_media_api.wsgi.application'
 import dj_database_url # type: ignore
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL', 'sqlite:///' + str(BASE_DIR / 'db.sqlite3'))
-        ) # handles database URL
+        default=os.environ.get('DATABASE_URL', 'sqlite:///' + str(BASE_DIR / 'db.sqlite3')),
+        'PORT': '5432'
+    )
 }
 
 
